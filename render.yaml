@@ -2,13 +2,13 @@
 services:
   - type: web
     name: image-hub
-    env: python
+    runtime: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn --workers 4 'app:app'"
-    disks:
-      - name: image-hub-data
-        mountPath: /var/data/image_hub_data
-        sizeGB: 1
+    disk:
+      name: image-hub-data
+      mountPath: /var/data/image_hub_data
+      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.4

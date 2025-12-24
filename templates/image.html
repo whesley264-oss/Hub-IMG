@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ image.filename }}{% endblock %}
+{% block content %}
+<h2>{{ image.filename }}</h2>
+<img src="{{ url_for('uploaded_file', filename=image.filename) }}" class="img-fluid" alt="{{ image.filename }}">
+<hr>
+<h3>Sharing Information</h3>
+<div class="form-group">
+  <label for="direct-link">Direct Link</label>
+  <input type="text" class="form-control" id="direct-link" value="{{ url_for('uploaded_file', filename=image.filename, _external=True) }}" readonly>
+</div>
+<div class="form-group">
+  <label for="html-embed">HTML Embed Code</label>
+  <textarea class="form-control" id="html-embed" rows="3" readonly><img src="{{ url_for('uploaded_file', filename=image.filename, _external=True) }}"></textarea>
+</div>
+{% endblock %}

@@ -36,3 +36,13 @@ The application will be available at `http://127.0.0.1:5000`.
 - **v1.0.0** (Current)
   - Initial release.
   - Features: User registration, login, and logout. Image uploading, viewing, and deletion. Direct link and HTML embed code for each image.
+
+## Deploy on Render
+
+You can deploy this application to Render by following these steps:
+
+1.  **Fork this repository** to your own GitHub account.
+2.  Go to the [Render Dashboard](https://dashboard.render.com/) and click the **"New +"** button, then select **"Blueprint"**.
+3.  Connect your GitHub account and select the repository you just forked.
+4.  Render will automatically detect the `render.yaml` file. In the deployment screen, make sure to select the correct branch for deployment (e.g., `feat/image-hub-app`).
+5.  Click **"Apply"** to deploy the service. Render will handle the rest, including installing dependencies, setting up the persistent disk, and starting the application.

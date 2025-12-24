@@ -6,12 +6,26 @@ from werkzeug.utils import secure_filename
 import os
 import uuid
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+# Check if running on Render
+IS_ON_RENDER = 'RENDER' in os.environ
+
+if IS_ON_RENDER:
+    # On Render, use the persistent disk mount path
+    DATA_DIR = '/var/data/image_hub_data'
+else:
+    # For local development, use a 'data' subdirectory
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    DATA_DIR = os.path.join(basedir, 'data')
+
+# Define and create the uploads folder
+UPLOADS_DIR = os.path.join(DATA_DIR, 'uploads')
+os.makedirs(UPLOADS_DIR, exist_ok=True)
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(DATA_DIR, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOADS_DIR
 app.config['SECRET_KEY'] = 'a_super_secret_key'
 
 db = SQLAlchemy(app)
